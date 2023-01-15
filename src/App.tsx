@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { MainMenu } from "./components/MainMenu";
+import { HomePage } from "./components/HomePage";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import { PokemonPage } from "./components/PokemonPage";
+import { Wishlist } from "./components/Wishlist/Wishlist";
+import { UserAccount } from "./components/UserAccount";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Provider store={store}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/pokemon/:id/:tab?" element={<PokemonPage />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/account" element={<UserAccount />} />
+          </Routes>
+          <MainMenu />
+        </Router>
+      </Provider>
     </div>
   );
 }
